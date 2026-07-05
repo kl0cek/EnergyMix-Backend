@@ -1,0 +1,5 @@
+node_moduls
+dist
+build
+coverage
+.env

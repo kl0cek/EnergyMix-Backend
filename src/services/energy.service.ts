@@ -69,5 +69,9 @@ export async function getOptimalChargingWindow(
     start: sorted[bestStart].from,
     end: sorted[bestStart + windowSize - 1].to,
     averageCleanEnergyPercent: round(bestSum / windowSize),
+    series: sorted.map((period, i) => ({
+      time: period.from,
+      cleanPercent: round(cleanSeries[i]),
+    })),
   };
 }

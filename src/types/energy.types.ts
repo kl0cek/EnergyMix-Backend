@@ -9,9 +9,15 @@ export interface DailyEnergyMix {
   cleanEnergyPercent: number;
 }
 
+export interface ForecastPoint {
+  time: string;
+  cleanPercent: number;
+}
+
 export interface ChargingWindow {
   windowHours: number;
   start: string;
   end: string;
   averageCleanEnergyPercent: number;
+  series: ForecastPoint[];
 }

@@ -1,5 +1,5 @@
 import { fetchGeneration } from './carbonIntensity.service';
-import { addDays, startOfUtcDay, toDateKey } from '../utils/date.util';
+import { addDays, floorToHalfHour, startOfUtcDay, toDateKey } from '../utils/date.util';
 import {
   averageDailyMix,
   cleanEnergyPercent,
@@ -35,8 +35,8 @@ export async function getOptimalChargingWindow(
   windowHours: number,
   now: Date = new Date()
 ): Promise<ChargingWindow> {
-  const from = now;
-  const to = addDays(now, WINDOW_DAYS);
+  const from = floorToHalfHour(now);
+  const to = addDays(from, WINDOW_DAYS);
 
   const periods = await fetchGeneration(from, to);
   const sorted = [...periods].sort((a, b) => a.from.localeCompare(b.from));

@@ -12,6 +12,12 @@ export function toApiDateTime(date: Date): string {
   return `${date.toISOString().slice(0, 16)}Z`;
 }
 
+export function floorToHalfHour(date: Date): Date {
+  const copy = new Date(date);
+  copy.setUTCMinutes(copy.getUTCMinutes() < 30 ? 0 : 30, 0, 0);
+  return copy;
+}
+
 export const LONDON_TIME_ZONE = 'Europe/London';
 
 // Calendar date (YYYY-MM-DD) of the timestamp in the given time zone (UK by default)

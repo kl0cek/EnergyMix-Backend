@@ -1,10 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import {
-  addDays,
-  startOfUtcDay,
-  toApiDateTime,
-  toDateKey,
-} from '../../utils/date.util';
+import { addDays, startOfUtcDay, toApiDateTime, toDateKey } from '../../utils/date.util';
 
 describe('startOfUtcDay', () => {
   it('given a timestamp with time-of-day, when normalised, then returns midnight UTC of the same date', () => {

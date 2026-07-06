@@ -6,10 +6,7 @@ import {
   round,
   sumRange,
 } from '../../utils/energy.util';
-import type {
-  GenerationMixEntry,
-  GenerationPeriod,
-} from '../../types/carbonIntensity.types';
+import type { GenerationMixEntry, GenerationPeriod } from '../../types/carbonIntensity.types';
 
 function period(from: string, cleanPct: number): GenerationPeriod {
   const mix: GenerationMixEntry[] = [
@@ -83,10 +80,7 @@ describe('sumRange', () => {
 
 describe('averageDailyMix', () => {
   it('given periods with known mixes, when averaged, then returns per-fuel averages and clean percent', () => {
-    const periods = [
-      period('2026-07-06T10:00:00Z', 60),
-      period('2026-07-06T10:30:00Z', 80),
-    ];
+    const periods = [period('2026-07-06T10:00:00Z', 60), period('2026-07-06T10:30:00Z', 80)];
 
     const result = averageDailyMix('2026-07-06', periods);
 

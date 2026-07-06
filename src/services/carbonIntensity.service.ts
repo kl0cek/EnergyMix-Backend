@@ -6,10 +6,7 @@ import type {
 
 const REQUEST_TIMEOUT_MS = 10000;
 
-export async function fetchGeneration(
-  from: Date,
-  to: Date,
-): Promise<GenerationPeriod[]> {
+export async function fetchGeneration(from: Date, to: Date): Promise<GenerationPeriod[]> {
   const baseUrl = process.env.API_URL;
   if (!baseUrl) {
     throw new Error('API_URL environment variable is not set.');
@@ -35,9 +32,7 @@ export async function fetchGeneration(
   }
 
   if (!response.ok) {
-    throw new Error(
-      `Carbon Intensity API responded with status ${response.status}.`,
-    );
+    throw new Error(`Carbon Intensity API responded with status ${response.status}.`);
   }
 
   const body = (await response.json()) as CarbonIntensityGenerationResponse;

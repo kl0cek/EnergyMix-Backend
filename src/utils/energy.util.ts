@@ -7,13 +7,7 @@ import { FUEL_TYPES } from '../types/carbonIntensity.types';
 import type { DailyEnergyMix, GenerationMix } from '../types/energy.types';
 import { toDateKey } from './date.util';
 
-export const CLEAN_FUELS: readonly FuelType[] = [
-  'biomass',
-  'nuclear',
-  'hydro',
-  'wind',
-  'solar',
-];
+export const CLEAN_FUELS: readonly FuelType[] = ['biomass', 'nuclear', 'hydro', 'wind', 'solar'];
 
 export function cleanEnergyPercent(mix: GenerationMixEntry[]): number {
   return mix
@@ -39,9 +33,7 @@ export function sumRange(values: number[], start: number, size: number): number 
   return sum;
 }
 
-export function groupByDate(
-  periods: GenerationPeriod[],
-): Map<string, GenerationPeriod[]> {
+export function groupByDate(periods: GenerationPeriod[]): Map<string, GenerationPeriod[]> {
   const map = new Map<string, GenerationPeriod[]>();
   for (const period of periods) {
     const key = toDateKey(period.from);
@@ -52,10 +44,7 @@ export function groupByDate(
   return map;
 }
 
-export function averageDailyMix(
-  date: string,
-  periods: GenerationPeriod[],
-): DailyEnergyMix {
+export function averageDailyMix(date: string, periods: GenerationPeriod[]): DailyEnergyMix {
   const totals = emptyMix();
   let cleanTotal = 0;
 

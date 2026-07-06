@@ -1,9 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fetchGeneration } from '../../services/carbonIntensity.service';
-import {
-  getDailyEnergyMix,
-  getOptimalChargingWindow,
-} from '../../services/energy.service';
+import { getDailyEnergyMix, getOptimalChargingWindow } from '../../services/energy.service';
 import type { GenerationPeriod } from '../../types/carbonIntensity.types';
 
 vi.mock('../../services/carbonIntensity.service', () => ({
@@ -95,8 +92,6 @@ describe('getOptimalChargingWindow', () => {
       period('2026-07-06T00:00:00Z', '2026-07-06T00:30:00Z', 50),
     ]);
 
-    await expect(getOptimalChargingWindow(1)).rejects.toThrow(
-      /Not enough forecast data/,
-    );
+    await expect(getOptimalChargingWindow(1)).rejects.toThrow(/Not enough forecast data/);
   });
 });

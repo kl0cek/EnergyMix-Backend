@@ -1,9 +1,7 @@
 export const MIN_WINDOW_HOURS = 1;
 export const MAX_WINDOW_HOURS = 6;
 
-export type WindowHoursResult =
-  | { ok: true; value: number }
-  | { ok: false; message: string };
+export type WindowHoursResult = { ok: true; value: number } | { ok: false; message: string };
 
 export function parseWindowHours(raw: unknown): WindowHoursResult {
   if (raw === undefined || raw === null || raw === '') {

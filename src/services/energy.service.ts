@@ -13,9 +13,7 @@ const HALF_HOURS_PER_HOUR = 2;
 const MIX_DAYS = 3;
 const WINDOW_DAYS = 2;
 
-export async function getDailyEnergyMix(
-  now: Date = new Date(),
-): Promise<DailyEnergyMix[]> {
+export async function getDailyEnergyMix(now: Date = new Date()): Promise<DailyEnergyMix[]> {
   // Fetch a day earlier so the first UK hours (which fall on the previous UTC day during BST) are included, then group by London calendar date
   const from = addDays(startOfUtcDay(now), -1);
   const to = addDays(startOfUtcDay(now), MIX_DAYS);
@@ -35,7 +33,7 @@ export async function getDailyEnergyMix(
 // Looks forward 48h from now (rest of today + next two days of forecast
 export async function getOptimalChargingWindow(
   windowHours: number,
-  now: Date = new Date(),
+  now: Date = new Date()
 ): Promise<ChargingWindow> {
   const from = now;
   const to = addDays(now, WINDOW_DAYS);
@@ -45,14 +43,10 @@ export async function getOptimalChargingWindow(
 
   const windowSize = windowHours * HALF_HOURS_PER_HOUR;
   if (sorted.length < windowSize) {
-    throw new Error(
-      `Not enough forecast data to evaluate a ${windowHours}h window.`,
-    );
+    throw new Error(`Not enough forecast data to evaluate a ${windowHours}h window.`);
   }
 
-  const cleanSeries = sorted.map((period) =>
-    cleanEnergyPercent(period.generationmix),
-  );
+  const cleanSeries = sorted.map((period) => cleanEnergyPercent(period.generationmix));
 
   let bestStart = 0;
   let bestSum = sumRange(cleanSeries, 0, windowSize);

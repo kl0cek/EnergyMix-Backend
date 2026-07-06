@@ -1,8 +1,5 @@
 import type { RequestHandler } from 'express';
-import {
-  getDailyEnergyMix,
-  getOptimalChargingWindow,
-} from '../services/energy.service';
+import { getDailyEnergyMix, getOptimalChargingWindow } from '../services/energy.service';
 import { parseWindowHours } from '../utils/validation.util';
 
 export const getEnergyMix: RequestHandler = async (_req, res) => {

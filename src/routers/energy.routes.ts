@@ -1,8 +1,5 @@
 import { Router } from 'express';
-import {
-  getChargingWindow,
-  getEnergyMix,
-} from '../controllers/energy.controller';
+import { getChargingWindow, getEnergyMix } from '../controllers/energy.controller';
 
 const router = Router();
 

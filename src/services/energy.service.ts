@@ -16,27 +16,29 @@ const WINDOW_DAYS = 2;
 export async function getDailyEnergyMix(
   now: Date = new Date(),
 ): Promise<DailyEnergyMix[]> {
-  const from = startOfUtcDay(now);
-  const to = addDays(from, MIX_DAYS);
+  // Fetch a day earlier so the first UK hours (which fall on the previous UTC day during BST) are included, then group by London calendar date
+  const from = addDays(startOfUtcDay(now), -1);
+  const to = addDays(startOfUtcDay(now), MIX_DAYS);
 
   const periods = await fetchGeneration(from, to);
   const byDate = groupByDate(periods);
 
   const days: DailyEnergyMix[] = [];
   for (let i = 0; i < MIX_DAYS; i += 1) {
-    const dateKey = toDateKey(addDays(from, i).toISOString());
+    const dateKey = toDateKey(addDays(now, i).toISOString());
     days.push(averageDailyMix(dateKey, byDate.get(dateKey) ?? []));
   }
 
   return days;
 }
 
+// Looks forward 48h from now (rest of today + next two days of forecast
 export async function getOptimalChargingWindow(
   windowHours: number,
   now: Date = new Date(),
 ): Promise<ChargingWindow> {
-  const from = addDays(startOfUtcDay(now), 1);
-  const to = addDays(from, WINDOW_DAYS);
+  const from = now;
+  const to = addDays(now, WINDOW_DAYS);
 
   const periods = await fetchGeneration(from, to);
   const sorted = [...periods].sort((a, b) => a.from.localeCompare(b.from));

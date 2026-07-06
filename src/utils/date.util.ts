@@ -14,6 +14,17 @@ export function toApiDateTime(date: Date): string {
   return `${date.toISOString().slice(0, 16)}Z`;
 }
 
-export function toDateKey(isoTimestamp: string): string {
-  return isoTimestamp.slice(0, 10);
+export const LONDON_TIME_ZONE = 'Europe/London';
+
+// Calendar date (YYYY-MM-DD) of the timestamp in the given time zone (UK by default)
+export function toDateKey(
+  isoTimestamp: string,
+  timeZone: string = LONDON_TIME_ZONE,
+): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date(isoTimestamp));
 }
